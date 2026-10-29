@@ -1,0 +1,7 @@
+participant_id,age,wellbeing_score
+P001,16,7
+P002,15,5
+P003,16,8
+P004,16,Missing
+P005,15,6
+P006,Unknown,9

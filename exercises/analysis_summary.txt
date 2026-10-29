@@ -1,0 +1,4 @@
+Analysis summary
+Three notes were reviewed.
+Further data cleaning is required.
+One note concerned missing responses.
