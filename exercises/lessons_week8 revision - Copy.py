@@ -1,4 +1,4 @@
-# WEEK 9 LESSON 16 - 28 OCT 2026
+    # WEEK 9 LESSON 16 - 28 OCT 2026
 
 ## Exercise 1
 
@@ -97,3 +97,6 @@ def classify_score(score):
 score_classification = classify_score(4)
 print(score_classification)
 
+
+
+# WEEK 10 LESSON 18 - 4 NOV 2026
