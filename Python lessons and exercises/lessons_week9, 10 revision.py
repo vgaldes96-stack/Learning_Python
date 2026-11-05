@@ -239,7 +239,84 @@ scores = []
 with open(file_path, "r") as file:
     for line in file:
         clean_line = line.strip()
-        score = int(clean_line)
+#        score = int(clean_line)
         scores.append(score)
 
 print(scores)
+
+
+
+# WEEK 10 LESSON 19 - 5 NOV 2026
+
+from pathlib import Path
+file_path = Path(__file__).with_name("scores.txt")
+
+scores = []
+invalid_count = 0
+
+with open(file_path, "r") as file:
+    for line in file:
+        clean_line = line.strip()
+
+        try:
+            score = int(clean_line)
+            scores.append(score)
+
+        except ValueError:
+            invalid_count += 1
+
+if not scores:
+    mean = None
+
+else:
+    mean = sum(scores) / len(scores)
+
+print(mean)
+print(scores)
+print(invalid_count)
+
+
+## CSV revision
+
+import csv
+from pathlib import Path
+
+file_path = Path(__file__).with_name("scores.csv")
+
+with open(file_path, "r", newline="", encoding="utf-8") as file:
+    reader = csv.DictReader(file)
+
+    for row in reader:
+        print(row["score"])
+
+
+## New exercise
+
+import csv
+from pathlib import Path
+
+file_path = Path(__file__).with_name("scores.csv")
+
+scores = []
+invalid_count = 0
+
+with open(file_path, "r", newline="", encoding="utf-8") as file:
+    reader = csv.DictReader(file)
+
+    for row in reader:
+        try:
+            score = int(row["score"])
+            scores.append(score)
+
+        except ValueError:
+            invalid_count += 1
+
+if not scores:
+    mean = None
+
+else:
+    mean = sum(scores) / len(scores)
+
+print(scores)
+print(invalid_count)
+print(mean)
