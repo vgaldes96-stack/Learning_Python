@@ -299,6 +299,7 @@ file_path = Path(__file__).with_name("scores.csv")
 
 scores = []
 invalid_count = 0
+invalid_ids = []
 
 with open(file_path, "r", newline="", encoding="utf-8") as file:
     reader = csv.DictReader(file)
@@ -310,6 +311,7 @@ with open(file_path, "r", newline="", encoding="utf-8") as file:
 
         except ValueError:
             invalid_count += 1
+            invalid_ids.append(row["participant_id"])
 
 if not scores:
     mean = None
@@ -320,3 +322,45 @@ else:
 print(scores)
 print(invalid_count)
 print(mean)
+print(invalid_ids)
+
+
+## New exercise
+
+import csv
+from pathlib import Path
+
+file_path = Path(__file__).with_name("scores.csv")
+
+scores = []
+invalid_count = 0
+invalid_ids = []
+
+with open(file_path, "r", newline="", encoding="utf-8") as file:
+    reader = csv.DictReader(file)
+
+    for row in reader:
+        try:
+            score = int(row["score"])
+
+            if 0 <= score <= 10:
+                scores.append(score)
+
+            else:
+                invalid_count += 1
+                invalid_ids.append(row["participant_id"])
+            
+        except ValueError:
+            invalid_count += 1
+            invalid_ids.append(row["participant_id"])
+
+if not scores:
+    mean = None
+
+else:
+    mean = sum(scores) / len(scores)
+
+print(scores)
+print(invalid_count)
+print(mean)
+print(invalid_ids)
