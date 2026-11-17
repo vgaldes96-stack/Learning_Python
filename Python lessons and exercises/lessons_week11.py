@@ -43,10 +43,106 @@ print(mean)
 print(valid_count)
 print(invalid_count)
 
-## retrieve the invalid participant IDs
+## retrieve the invalid participant IDs by reversing the mask with ~
 
 invalid_rows = df[~valid_mask]
 
 invalid_ids = invalid_rows["participant_id"].tolist()
 
 print(invalid_ids)
+
+
+
+# WEEK 12 LESSON 21 - 17 NOV 2026
+
+## Combining 2 conditions in pandas
+
+import pandas as pd
+from pathlib import Path
+
+file_path = Path(__file__).with_name("scores.csv")
+
+df = pd.read_csv(file_path)
+
+df["score_numeric"] = pd.to_numeric(df["score"], errors="coerce")
+
+valid_mask = df["score_numeric"].between(0, 10)
+valid_rows = df[valid_mask]
+
+completed_mask = df["completed"] == "yes"
+
+eligible_mask = valid_mask & completed_mask
+eligible_rows = df[eligible_mask]
+
+eligible_ids = eligible_rows["participant_id"].tolist()
+print(eligible_ids)
+
+mean = eligible_rows["score_numeric"].mean()
+print(mean)
+
+
+# Create a small review table of participants who completed the questionnaire but have an invalid score.
+
+import pandas as pd
+from pathlib import Path
+
+file_path = Path(__file__).with_name("scores.csv")
+
+df = pd.read_csv(file_path)
+
+df["score_numeric"] = pd.to_numeric(df["score"], errors="coerce")
+
+valid_mask = df["score_numeric"].between(0, 10)
+
+completed_mask = df["completed"] == "yes"
+
+completed_invalid_mask = ~valid_mask & completed_mask
+
+completed_invalid_table = df.loc[completed_invalid_mask, ["participant_id", "score", "score_numeric"]]
+
+print(completed_invalid_table)
+
+
+# Create a small review table of who anyone who did not complete the questionnaire or has an invalid score.
+
+import pandas as pd
+from pathlib import Path
+
+file_path = Path(__file__).with_name("scores.csv")
+
+df = pd.read_csv(file_path)
+
+df["score_numeric"] = pd.to_numeric(df["score"], errors="coerce")
+
+valid_mask = df["score_numeric"].between(0, 10)
+
+completed_mask = df["completed"] == "yes"
+
+notcompleted_invalid_mask = ~valid_mask | ~completed_mask
+
+notcompleted_invalid_table = df.loc[notcompleted_invalid_mask, ["participant_id", "completed", "score"]]
+
+print(notcompleted_invalid_table)
+
+
+# Reverse that mask with ~eligible_mask
+
+import pandas as pd
+from pathlib import Path
+
+file_path = Path(__file__).with_name("scores.csv")
+
+df = pd.read_csv(file_path)
+
+df["score_numeric"] = pd.to_numeric(df["score"], errors="coerce")
+
+valid_mask = df["score_numeric"].between(0, 10)
+
+completed_mask = df["completed"] == "yes"
+
+eligible_mask = valid_mask & completed_mask
+notcompleted_invalid_mask = ~eligible_mask
+
+notcompleted_invalid_table = df.loc[notcompleted_invalid_mask, ["participant_id", "completed", "score"]]
+
+print(notcompleted_invalid_table)
