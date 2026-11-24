@@ -199,7 +199,14 @@ incomplete_count = incompleted_mask.sum()
 review_mask = missing_score_mask | ~valid_mask | incompleted_mask
 review_count = review_mask.sum()
 
+total_records = len(df)
+review_percentage = (review_count/total_records) * 100
+
+incomplete_percentage = (incomplete_count/total_records) * 100
+
 print("Missing scores:", missing_count)
 print("Numeric scores outside 0-10:", out_of_range_count)
 print("Incomplete questionanires:", incomplete_count)
-print("Records that neew review:", review_count)
+print("Percentage of incomplete questionnaires:", round(incomplete_percentage, 2))
+print("Records that need review:", review_count)
+print("Percentage of records that need review:", round(review_percentage,2))
